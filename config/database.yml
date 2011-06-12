@@ -1,0 +1,3 @@
+etl_execution:
+  database: data/etl_execution.sqlite3
+  adapter: sqlite3
