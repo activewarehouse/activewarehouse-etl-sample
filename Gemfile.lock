@@ -1,0 +1,40 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activemodel (3.0.8)
+      activesupport (= 3.0.8)
+      builder (~> 2.1.2)
+      i18n (~> 0.5.0)
+    activerecord (3.0.8)
+      activemodel (= 3.0.8)
+      activesupport (= 3.0.8)
+      arel (~> 2.0.10)
+      tzinfo (~> 0.3.23)
+    activesupport (3.0.8)
+    activewarehouse-etl (0.9.5.rc1)
+      activerecord (>= 2.1.0)
+      activesupport (>= 2.1.0)
+      adapter_extensions (>= 0.5.0)
+      fastercsv (>= 1.2.0)
+      rake (>= 0.8.3)
+      spreadsheet
+    adapter_extensions (0.5.0)
+      activerecord (>= 2.1.0)
+      activesupport (>= 2.1.0)
+      fastercsv (>= 1.0.0)
+      rake (>= 0.8.3)
+    arel (2.0.10)
+    builder (2.1.2)
+    fastercsv (1.5.4)
+    i18n (0.5.0)
+    rake (0.9.2)
+    ruby-ole (1.2.11.1)
+    spreadsheet (0.6.5.4)
+      ruby-ole (>= 1.0)
+    tzinfo (0.3.27)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activewarehouse-etl (= 0.9.5.rc1)
