@@ -1,3 +1,7 @@
 etl_execution:
   database: data/etl_execution.sqlite3
   adapter: sqlite3
+
+datawarehouse:
+  database: data/datawarehouse.sqlite3
+  adapter: sqlite3
