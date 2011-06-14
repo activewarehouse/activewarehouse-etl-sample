@@ -1,6 +1,3 @@
-# You can require regular ruby code from here
-require File.dirname(__FILE__) + '/common'
-
 # One can enable debug logging with:
 #   ETL::Engine.logger = Logger.new(STDOUT)
 #   ETL::Engine.logger.level = Logger::DEBUG
@@ -24,6 +21,6 @@ after_read :check_unique, :keys => [:email]
 # You can use a block to achieve whatever you want
 # Just remember to return the row at the end
 after_read do |row|
-  ap row
+#  ap row
   row
 end

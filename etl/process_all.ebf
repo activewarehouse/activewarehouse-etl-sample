@@ -1,3 +1,8 @@
+lib = File.expand_path('../', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
+require 'common'
+
 run 'extract.ctl'
 run 'prepare_db.ctl'
 

@@ -1,5 +1,3 @@
-require File.dirname(__FILE__) + '/common'
-
 user_fields = {
   'an' => :author_name,
   'ae' => :author_email,
