@@ -1,2 +1,4 @@
 run 'extract.ctl'
 run 'prepare_db.ctl'
+
+run 'upsert_users.ctl'
