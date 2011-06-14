@@ -1,7 +1,12 @@
+common: &common
+  adapter: mysql
+  username: root
+  host: localhost
+
 etl_execution:
-  database: data/etl_execution.sqlite3
-  adapter: sqlite3
+  <<: *common
+  database: aw_etl_sample_etl_execution
 
 datawarehouse:
-  database: data/datawarehouse.sqlite3
-  adapter: sqlite3
+  <<: *common
+  database: aw_etl_sample_datawarehouse
