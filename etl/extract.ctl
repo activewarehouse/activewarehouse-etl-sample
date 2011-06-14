@@ -15,15 +15,26 @@ pre_process do
   end
 end
 
+def to_git_char(char)
+  "%x" + char.ord.to_s(16).rjust(2, "0")
+end
+
 pre_process do
-  git_fields = user_fields.map(&:first).map { |e| "%#{e}" }.join('%x2C')
+  col_sep = "\t"
+  
+  git_fields = user_fields.map(&:first).map { |e| "%#{e}" }
+  git_fields = git_fields.join(to_git_char(col_sep))
   csv_fields = user_fields.map(&:last)
 
   git_users_file = File.expand_path(File.join(DATA_FOLDER, 'git-users.csv'))
 
-  File.open(git_users_file, 'w') do |file|
-    file << csv_fields.join(',') + "\n"
+  CSV.open(git_users_file, 'w') do |output|
+    output << csv_fields
+    
+    cmd = "cd #{GIT_RAILS_REPO} && git log --pretty=format:\"#{git_fields}\""
+    
+    IO.popen(cmd).each_line do |line|
+      output << line.chomp.split(col_sep)
+    end
   end
-  
-  system! "cd #{GIT_RAILS_REPO} && git log --pretty=format:\"#{git_fields}\" >> #{git_users_file}"
 end
