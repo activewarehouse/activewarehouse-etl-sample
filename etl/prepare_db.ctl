@@ -1,17 +1,7 @@
 pre_process do
+  migrations_folder = File.expand_path(File.dirname(__FILE__) + '/migrations')
+  version = ENV["VERSION"] ? ENV["VERSION"].to_i : nil
   
   ActiveRecord::Base.establish_connection(:datawarehouse)
-  
-#  ActiveRecord::Schema.drop_table(:users)
-  
-  ActiveRecord::Schema.define do
-    unless table_exists?(:users)
-      create_table :users do |t|
-        t.string :name, :null => false
-      end
-
-      add_index :users, :name, :unique
-    end
-  end
-  
+  ActiveRecord::Migrator.migrate(migrations_folder, version)
 end
