@@ -29,7 +29,10 @@ pre_process do
   CSV.open(git_users_file, 'w') do |output|
     output << csv_fields
     
-    cmd = "cd #{GIT_RAILS_REPO} && git log --pretty=format:\"#{git_fields}\""
+    # here we could implement change data capture (CDC) by remembering when
+    # the extraction is carried out and retrieving only the delta for 
+    # subsequent calls
+    cmd = "cd #{GIT_RAILS_REPO} && git log --reverse --pretty=format:\"#{git_fields}\""
     
     IO.popen(cmd).each_line do |line|
       output << line.chomp.split(col_sep)
