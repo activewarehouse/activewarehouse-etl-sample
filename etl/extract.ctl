@@ -19,8 +19,7 @@ pre_process do
     'H'  => :commit_hash,
     'an' => :author_name,
     'ae' => :author_email,
-    'ai' => :author_date,
-    's'  => :commit_subject,
+    'ai' => :author_date
   }.to_a
 
   col_sep = "\t"
@@ -39,7 +38,7 @@ pre_process do
     IO.popen(cmd).each_line do |line|
       case line
         when /^[0-9a-f]{40}/;
-          buffer << 0 << 0 << 0 unless buffer.size == csv_fields.size
+          buffer << 0 << 0 << 0 unless buffer.size == csv_fields.size || buffer.empty?
           output << buffer unless buffer.empty?
           buffer = line.strip.split(col_sep)
         when /(\d+) files changed, (\d+) insertions\(\+\), (\d+) deletions\(\-\)/;
@@ -48,14 +47,15 @@ pre_process do
         else raise "Failed to parse line #{line.inspect}"
       end
     end
-    
+
+    buffer << 0 << 0 << 0 unless buffer.size == csv_fields.size || buffer.empty?
     output << buffer unless buffer.empty?
   end
   
 end
 
 screen(:fatal) do
-  assert_equal %w(commit_hash author_name author_email author_date commit_subject files_changed insertions deletions),
+  assert_equal %w(commit_hash author_name author_email author_date files_changed insertions deletions),
     CSV.parse_line(IO.popen("head -1 #{git_commits_file}").read)
   
   assert_equal [
@@ -63,7 +63,6 @@ screen(:fatal) do
     "Xavier Noria",
     "fxn@hashref.com",
     "2011-06-18 10:14:32 +0200",
-    "copy-edits 7c2db6c, cbf2af1, and f391f94",
     "2",
     "3",
     "3"
