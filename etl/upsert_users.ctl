@@ -1,3 +1,5 @@
+require File.expand_path(File.dirname(__FILE__) + '/common')
+
 # One can enable debug logging with:
 #   ETL::Engine.logger = Logger.new(STDOUT)
 #   ETL::Engine.logger.level = Logger::DEBUG
@@ -7,28 +9,15 @@
 
 # read the users csv file (options are passed to CSV/FasterCSV)
 source :git_users,
-  :file => File.expand_path(File.join(DATA_FOLDER, 'git-users.csv')),
+  :file => File.expand_path(File.join(DATA_FOLDER, 'git-commits.csv')),
   :skip_lines => 1, :parser => :delimited
 
-# this after read processor generates two output rows for one input row
-after_read do |row|
-  [
-    { :name => row[:author_name], :email => row[:author_email] },
-    { :name => row[:committer_name], :email => row[:committer_email] }
-  ]
-end
-
-after_read do |row|
-  ap row if row[:name] =~ /utf/
-  row
-end
-
 # in RAM unicity check - duplicate rows will be removed from the pipeline
-after_read :check_unique, :keys => [:name]
+after_read :check_unique, :keys => [:author_name]
 
 # use the email as name in case no name is provided
 transform(:name) do |key, value, row|
-  row[:name].blank? ? row[:email] : row[:name]
+  row[:author_name].blank? ? row[:author_email] : row[:author_name]
 end
 
 # remove rows that are already in the destination database
