@@ -1,6 +1,8 @@
 source :rubygems
 
-gem 'activewarehouse-etl', '0.9.5.rc1'
-gem 'sqlite3'
+gem 'activewarehouse-etl', :git => 'git@github.com:activewarehouse/activewarehouse-etl.git'
 
+gem 'mysql'
 gem 'awesome_print'
+
+gem 'rocco'
