@@ -3,6 +3,7 @@ require 'awesome_print'
 $: << File.dirname(__FILE__) + '/../lib'
 
 require 'date_dimension_builder'
+require 'time_dimension_builder'
 
 DATA_FOLDER = File.dirname(__FILE__) + '/../data'
 
