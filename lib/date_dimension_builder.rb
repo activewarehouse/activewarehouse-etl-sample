@@ -16,7 +16,7 @@ class DateDimensionBuilder
   
   # Returns an array of hashes representing records in the dimension. The values for each record are 
   # accessed by name.
-  def build(options={})
+  def build
     records = []
     date = start_date
     while date <= end_date
