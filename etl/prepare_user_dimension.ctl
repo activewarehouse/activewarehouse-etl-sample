@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/common')
 
+table = 'user_dimension'
+
 # One can enable debug logging with:
 #   ETL::Engine.logger = Logger.new(STDOUT)
 #   ETL::Engine.logger.level = Logger::DEBUG
@@ -21,35 +23,37 @@ transform(:name) do |key, value, row|
 end
 
 # remove rows that are already in the destination database
-before_write :check_exist, :target => :datawarehouse, :table => 'users', :columns => [:name]
+before_write :check_exist, :target => :datawarehouse, :table => table, :columns => [:name]
 
 # here we'll just define a constant to be reused down there
-BULK_LOAD_FILE = File.expand_path(File.join(DATA_FOLDER, 'new_git_users.txt'))
+bulk_load_file = File.expand_path(File.join(DATA_FOLDER, 'new_git_users.txt'))
 
 # write only the new records to a raw file prior to bulk loading
-destination :out, { :file => BULK_LOAD_FILE }, { :order => [:name] }
+destination :out, { :file => bulk_load_file }, { :order => [:name] }
 
 # before the post-process, we have an opportunity to check the data
 screen(:fatal) {
-  IO.foreach(BULK_LOAD_FILE) do |line|
-    assert line.strip.size > 0, "Empty line detected in #{BULK_LOAD_FILE}! This isn't expected."
+  IO.foreach(bulk_load_file) do |line|
+    assert line.strip.size > 0, "Empty line detected in #{bulk_load_file}! This isn't expected."
   end
 }
 
 # then bulk-load the resulting file to the database
 post_process :bulk_import, {
-  :file => BULK_LOAD_FILE,
+  :file => bulk_load_file,
   :columns => [:name],
-  :target => :datawarehouse, :table => 'users'
+  :target => :datawarehouse, :table => table
 }
 
 # after post-processes, we have another opportunity to check the data
 after_post_process_screen(:fatal) {
+  ActiveRecord::Base.establish_connection(:datawarehouse)
+
   # we can use AR or any other ruby tool in there:
-  class User < ActiveRecord::Base; end
+  class UserDimension < ActiveRecord::Base; end
+  UserDimension.table_name = table
   
-  assert_equal 1, User.where(:name => 'Yehuda Katz').count, "More than 1 user named Yehuda Katz"
-  
-  assert_equal 0, User.where(:name => '').count, "No user should have an empty name"
+  assert_equal 1, UserDimension.where(:name => 'Yehuda Katz').count, "More than 1 user named Yehuda Katz"
+  assert_equal 0, UserDimension.where(:name => '').count, "No user should have an empty name"
 }
 

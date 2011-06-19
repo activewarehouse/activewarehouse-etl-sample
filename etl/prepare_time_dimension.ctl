@@ -5,6 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/common')
 # to DRY things - it will definitely work.
 
 table = 'time_dimension'
+bulk_load_file = "#{table}.txt"
 
 pre_process :truncate, :target => :datawarehouse, :table => table
 
@@ -19,24 +20,22 @@ source :in, {
 # pick the first record to extract the column names
 columns = records.first.keys
 
-BULK_LOAD_FILE = 'time_dimension.txt'
 
 # write only the new records to a raw file prior to bulk loading
-destination :out, { :file => BULK_LOAD_FILE }, { :order => columns }
+destination :out, { :file => bulk_load_file }, { :order => columns }
 
 # then bulk-load the resulting file to the database
 post_process :bulk_import, {
-  :file => BULK_LOAD_FILE,
+  :file => bulk_load_file,
   :columns => columns,
   :target => :datawarehouse, :table => table
 }
 
 after_post_process_screen(:fatal) do
-  class TimeDimension < ActiveRecord::Base
-    set_table_name 'time_dimension'
-  end
-  
   ActiveRecord::Base.establish_connection(:datawarehouse)
+
+  class TimeDimension < ActiveRecord::Base; end
+  TimeDimension.table_name = table
   
   assert_equal 60*24, TimeDimension.count
     

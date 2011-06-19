@@ -1,7 +1,8 @@
 
 run 'extract.ctl'
+
 run 'prepare_db.ctl'
 
 run 'prepare_date_dimension.ctl'
 run 'prepare_time_dimension.ctl'
-run 'upsert_users.ctl'
+run 'prepare_user_dimension.ctl'

@@ -1,10 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/common')
 
 table = 'date_dimension'
+bulk_load_file = "#{table}.txt"
+start_date = Date.parse('2000-01-01')
+end_date = Date.parse('2020-01-01')
 
 pre_process :truncate, :target => :datawarehouse, :table => table
 
-records = DateDimensionBuilder.new("2000-01-01", "2050-01-01").build
+records = DateDimensionBuilder.new(start_date, end_date).build
 
 source :in, {
   :type => :enumerable,
@@ -15,28 +18,24 @@ source :in, {
 # pick the first record to extract the column names
 columns = records.first.keys
 
-BULK_LOAD_FILE = 'date_dimension.txt'
-
 # write only the new records to a raw file prior to bulk loading
-destination :out, { :file => BULK_LOAD_FILE }, { :order => columns }
+destination :out, { :file => bulk_load_file }, { :order => columns }
 
 # then bulk-load the resulting file to the database
 post_process :bulk_import, {
-  :file => BULK_LOAD_FILE,
+  :file => bulk_load_file,
   :columns => columns,
   :target => :datawarehouse, :table => table
 }
 
 after_post_process_screen(:fatal) do
-  class DateDimension < ActiveRecord::Base
-    set_table_name 'date_dimension'
-  end
-  
   ActiveRecord::Base.establish_connection(:datawarehouse)
-  
-  assert_equal Date.parse('2050-01-01') - Date.parse('2000-01-01') + 1,
-    DateDimension.count
-    
+
+  class DateDimension < ActiveRecord::Base; end
+  DateDimension.table_name = table
+
+  assert_equal end_date - start_date + 1, DateDimension.count
+
   # ensure we keep constant ids despite the truncating
-  assert_equal '2000-01-01', DateDimension.find(1).date
+  assert_equal start_date, DateDimension.find(1).sql_date_stamp
 end
