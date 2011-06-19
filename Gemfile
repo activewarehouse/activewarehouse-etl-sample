@@ -6,3 +6,7 @@ gem 'mysql'
 gem 'awesome_print'
 
 gem 'rocco'
+
+group :test do
+  gem 'rspec'
+end
