@@ -12,6 +12,7 @@ source :in, {
   :store_locally => false
 }
 
+# pick the first record to extract the column names
 columns = records.first.keys
 
 BULK_LOAD_FILE = 'date_dimension.txt'
