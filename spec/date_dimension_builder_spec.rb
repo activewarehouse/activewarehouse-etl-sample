@@ -1,8 +1,7 @@
 require File.dirname(__FILE__) + '/spec_helper'
-
 require 'date_dimension_builder'
 
-describe "DateDimensionBuilder" do
+describe DateDimensionBuilder do
 
   def days(from, to, key=nil)
     result = DateDimensionBuilder.new(from, to).build
