@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/common')
 
-table = 'user_dimension'
+table = UserDimension.table_name
 
 # One can enable debug logging with:
 #   ETL::Engine.logger = Logger.new(STDOUT)
@@ -12,7 +12,10 @@ table = 'user_dimension'
 # read the users csv file (options are passed to CSV/FasterCSV)
 source :git_users,
   :file => File.expand_path(File.join(DATA_FOLDER, 'git-commits.csv')),
-  :skip_lines => 1, :parser => :delimited
+  :skip_lines => 1, :parser => :csv
+
+source :unknown_user, :type => :enumerable,
+  :enumerable => [{:author_name => UNKNOWN_USER_NAME}]
 
 # in RAM unicity check - duplicate rows will be removed from the pipeline
 after_read :check_unique, :keys => [:author_name]
@@ -47,13 +50,8 @@ post_process :bulk_import, {
 
 # after post-processes, we have another opportunity to check the data
 after_post_process_screen(:fatal) {
-  ActiveRecord::Base.establish_connection(:datawarehouse)
-
-  # we can use AR or any other ruby tool in there:
-  class UserDimension < ActiveRecord::Base; end
-  UserDimension.table_name = table
-  
   assert_equal 1, UserDimension.where(:name => 'Yehuda Katz').count, "More than 1 user named Yehuda Katz"
   assert_equal 0, UserDimension.where(:name => '').count, "No user should have an empty name"
+  assert_equal 1, UserDimension.where(:name => 'José Valim').count, "José Valim not found"
+  assert_equal 1, UserDimension.where(:name => 'Unknown user').count, "Unknown user not found"
 }
-
