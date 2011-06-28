@@ -6,3 +6,5 @@ run 'prepare_db.ctl'
 run 'prepare_date_dimension.ctl'
 run 'prepare_time_dimension.ctl'
 run 'prepare_user_dimension.ctl'
+
+run 'import_new_commits.ctl'
