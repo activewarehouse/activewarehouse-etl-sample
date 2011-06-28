@@ -10,3 +10,4 @@ etl_execution:
 datawarehouse:
   <<: *common
   database: aw_etl_sample_datawarehouse
+  encoding: utf8
