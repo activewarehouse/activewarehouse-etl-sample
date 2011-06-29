@@ -21,9 +21,17 @@ end
 class UserDimension < ActiveRecord::Base; end
 UserDimension.table_name = 'user_dimension'
 
+class TimeDimension < ActiveRecord::Base; end
+TimeDimension.table_name = 'time_dimension'
+
+class DateDimension < ActiveRecord::Base; end
+DateDimension.table_name = 'date_dimension'
+
 class Commit < ActiveRecord::Base
   # TODO - rename as :author
   belongs_to :user, :class_name => 'UserDimension'
+  belongs_to :date, :class_name => 'DateDimension'
+  belongs_to :time, :class_name => 'TimeDimension'
 end
 
 # TODO - figure out why this is required here

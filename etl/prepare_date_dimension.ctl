@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/common')
 
-table = 'date_dimension'
+table = DateDimension.table_name
 bulk_load_file = "#{table}.txt"
 start_date = Date.parse('2000-01-01')
 end_date = Date.parse('2020-01-01')
@@ -29,11 +29,6 @@ post_process :bulk_import, {
 }
 
 after_post_process_screen(:fatal) do
-  ActiveRecord::Base.establish_connection(:datawarehouse)
-
-  class DateDimension < ActiveRecord::Base; end
-  DateDimension.table_name = table
-
   assert_equal end_date - start_date + 1, DateDimension.count
 
   # ensure we keep constant ids despite the truncating

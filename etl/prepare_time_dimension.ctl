@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/common')
 # so similar you can create a ruby method into common.rb or another file
 # to DRY things - it will definitely work.
 
-table = 'time_dimension'
+table = TimeDimension.table_name
 bulk_load_file = "#{table}.txt"
 
 pre_process :truncate, :target => :datawarehouse, :table => table
@@ -32,11 +32,6 @@ post_process :bulk_import, {
 }
 
 after_post_process_screen(:fatal) do
-  ActiveRecord::Base.establish_connection(:datawarehouse)
-
-  class TimeDimension < ActiveRecord::Base; end
-  TimeDimension.table_name = table
-  
   assert_equal 60*24, TimeDimension.count
     
   # ensure we keep constant ids despite the truncating
