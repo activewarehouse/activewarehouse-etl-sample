@@ -9,13 +9,14 @@ table = UserDimension.table_name
 # And display rows in a processor using:
 # after_read do |row| ap row; row; end
 
+# first source to create an 'unknown' user
+source :unknown_user, :type => :enumerable,
+  :enumerable => [{:author_name => UNKNOWN_USER_NAME}]
+
 # read the users csv file (options are passed to CSV/FasterCSV)
 source :git_users,
   :file => File.expand_path(File.join(DATA_FOLDER, 'git-commits.csv')),
   :skip_lines => 1, :parser => :csv
-
-source :unknown_user, :type => :enumerable,
-  :enumerable => [{:author_name => UNKNOWN_USER_NAME}]
 
 # in RAM unicity check - duplicate rows will be removed from the pipeline
 after_read :check_unique, :keys => [:author_name]
