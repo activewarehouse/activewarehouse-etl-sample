@@ -33,6 +33,7 @@ GEM
     diff-lcs (1.1.2)
     eventmachine (0.12.10)
     fastercsv (1.5.4)
+    haml (3.1.2)
     i18n (0.5.0)
     pg (0.11.0)
     rack (1.3.0)
@@ -62,6 +63,7 @@ DEPENDENCIES
   activerecord
   activewarehouse-etl!
   awesome_print
+  haml
   pg
   rspec
   sinatra

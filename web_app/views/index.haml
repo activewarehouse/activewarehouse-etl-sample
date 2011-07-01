@@ -1,0 +1,50 @@
+%h2 Rails git repo commits statistics
+
+%p
+  Work-in-progress: these graphics are the output of a 
+  %a{:href => 'https://github.com/activewarehouse/activewarehouse-etl-sample'}<
+    sample of Extract-Transform-Load process (ETL) 
+  made with
+  %a{:href => 'https://github.com/activewarehouse/activewarehouse-etl'}<
+    ActiveWarehouse-ETL
+  (a ruby ETL library).
+  
+  Bear with us until more explanations are available here.
+
+- query = <<-SQL
+-   select count(*), date.year from commits as commit inner join date_dimension as date on 
+-   commit.date_id = date.id group by date.year order by date.year asc
+- SQL
+- data = ActiveRecord::Base.connection.select_all(query)
+- years = data.map { |r| r['year'] }.to_json
+- commits = data.map { |r| Integer(r['count']) }.to_json
+
+%script{:type => 'text/javascript'}
+  :plain
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+
+      var years = #{years};
+      var commits = #{commits};
+
+      data.addColumn('string', 'Year');
+      data.addColumn('number', 'Number of Commits');
+
+      data.addRows(years.length);
+
+      for (var j = 0; j < years.length; ++j) {    
+        data.setValue(j, 0, years[j].toString());
+        data.setValue(j, 1, commits[j]);
+      }
+      
+      new google.visualization.ColumnChart(document.getElementById('visualization')).
+          draw(data,
+               {title:"Yearly Commits", 
+                width:800, height:400,
+                hAxis: {title: "Year"}}
+          );
+    }
+    
+    google.setOnLoadCallback(drawChart);
+    
+#visualization{:style => "width: 800px; height: 400px;"}

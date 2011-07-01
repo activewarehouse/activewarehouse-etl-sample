@@ -15,4 +15,5 @@ end
 group :production do
   gem 'sinatra'
   gem 'thin'
+  gem 'haml'
 end
