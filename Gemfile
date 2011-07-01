@@ -1,9 +1,9 @@
 source :rubygems
 
-gem 'activewarehouse-etl', :git => 'git@github.com:activewarehouse/activewarehouse-etl.git'
 gem 'pg'
 
 group :development do
+  gem 'activewarehouse-etl', :git => 'git@github.com:activewarehouse/activewarehouse-etl.git'
   gem 'awesome_print'
 end
 
