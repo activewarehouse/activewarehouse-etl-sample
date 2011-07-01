@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'pg'
+gem 'active_record'
 
 group :development do
   gem 'activewarehouse-etl', :git => 'git@github.com:activewarehouse/activewarehouse-etl.git'
