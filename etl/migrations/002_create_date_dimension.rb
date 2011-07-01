@@ -5,6 +5,7 @@ class CreateDateDimension < ActiveRecord::Migration
       t.string :date
       t.string :month
       t.string :day_of_week
+      t.integer :day_of_week_as_number
       t.string :year
       t.string :year_and_month
       t.date :sql_date_stamp

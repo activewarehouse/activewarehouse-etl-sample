@@ -24,6 +24,7 @@ class DateDimensionBuilder
       record[:date] = date.strftime("%Y-%m-%d")
       record[:month] = Date::MONTHNAMES[date.month].downcase
       record[:day_of_week] = Date::DAYNAMES[date.wday].downcase
+      record[:day_of_week_as_number] = date.wday
       record[:year] = date.year.to_s
       record[:year_and_month] = record[:year] + "-" + date.month.to_s.rjust(2,'0')
       record[:sql_date_stamp] = date

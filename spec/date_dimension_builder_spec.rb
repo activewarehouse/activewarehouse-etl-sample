@@ -40,6 +40,10 @@ describe DateDimensionBuilder do
     days('2007-12-01', '2007-12-07', :day_of_week).should eql(%w(saturday sunday monday tuesday wednesday thursday friday))
   end
   
+  it "should return all the days of week as numbers starting by sunday as 0" do
+    days('2007-12-01', '2007-12-07', :day_of_week_as_number).should eql([6, 0, 1, 2, 3, 4, 5])
+  end
+  
   it "should return a sql_date_stamp" do
     day('1991-1-1', :sql_date_stamp).should eql(Date.parse("1991-1-1"))
   end
