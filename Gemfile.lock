@@ -59,6 +59,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord
   activewarehouse-etl!
   awesome_print
   pg
