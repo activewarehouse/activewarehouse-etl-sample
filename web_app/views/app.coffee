@@ -1,0 +1,2 @@
+jQuery ->
+  alert("Hello world")

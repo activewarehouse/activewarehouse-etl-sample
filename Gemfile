@@ -16,4 +16,5 @@ group :production do
   gem 'sinatra'
   gem 'thin'
   gem 'haml'
+  gem 'coffee-script'
 end
