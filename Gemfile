@@ -13,6 +13,7 @@ group :test do
 end
 
 group :production do
+  gem 'therubyracer'
   gem 'sinatra'
   gem 'thin'
   gem 'haml'
