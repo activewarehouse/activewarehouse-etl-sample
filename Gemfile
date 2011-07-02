@@ -18,4 +18,5 @@ group :production do
   gem 'thin'
   gem 'haml'
   gem 'coffee-script'
+  gem 'coffee-filter'
 end

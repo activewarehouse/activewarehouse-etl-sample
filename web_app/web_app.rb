@@ -5,6 +5,7 @@ require 'uri'
 require 'active_record'
 require 'erb'
 require 'coffee-script'
+require 'coffee-filter'
 require 'json'
 
 rack_env = ENV['RACK_ENV'] || 'development'
