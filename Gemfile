@@ -5,6 +5,7 @@ gem 'activerecord'
 
 group :development do
   gem 'activewarehouse-etl', :git => 'git@github.com:activewarehouse/activewarehouse-etl.git'
+  gem 'adapter_extensions',:git => 'https://github.com/activewarehouse/adapter_extensions.git'
   gem 'awesome_print'
 end
 
