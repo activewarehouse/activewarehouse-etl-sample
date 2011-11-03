@@ -46,6 +46,9 @@ transform :time_id, :foreign_key_lookup,
 # here we'll just define a constant to be reused down there
 bulk_load_file = File.expand_path(File.join(DATA_FOLDER, 'new_git_commits.txt'))
 
+# remove rows that are already in the destination database
+before_write :check_exist, :target => :datawarehouse, :table => table, :columns => [:hash]
+
 # write only the new records to a raw file prior to bulk loading
 destination :out, { :file => bulk_load_file }, { :order => target_fields }
 
