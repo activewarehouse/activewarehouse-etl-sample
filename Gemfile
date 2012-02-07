@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'pg'
+gem 'mysql2'
 gem 'activerecord'
 
 group :development do
