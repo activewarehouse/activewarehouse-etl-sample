@@ -3,3 +3,4 @@ etl.log
 source_data
 .DS_Store
 tmp
+*.txt
