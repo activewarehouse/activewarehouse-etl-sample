@@ -27,15 +27,15 @@ There are a couple of specs to show how to test your dimension builders. Run wit
 
 `rake spec`
 
-# Contributors
+## Contributors
 
 * Thibaut Barrère
 * Alisson Cavalcante Agiani
 
-# Contributing
+## Contributing
 
 Pull-request are most-welcome! Get in touch before working on anything significant though.
 
-# License
+## License
 
 MIT
