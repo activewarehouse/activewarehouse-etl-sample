@@ -2,7 +2,15 @@
 
 This is a sample of ETL built on a very small data set (the rails git commit log) for educational purposes.
 
-## Build status
+## Current status
+
+The project is currently broken because I'm in the middle of upgrading it to Rails 3 and mysql2.
+
+If you end up with the following error then you went as far as you could:
+
+```
+/lib/adapter_extensions/connection_adapters/abstract_adapter.rb:46:in `do_bulk_load': do_bulk_load is an abstract method (NotImplementedError)
+```
 
 [![Build Status](https://secure.travis-ci.org/activewarehouse/activewarehouse-etl-sample.png)](http://travis-ci.org/activewarehouse/activewarehouse-etl-sample)
 
