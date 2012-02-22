@@ -1,3 +1,5 @@
 data/*
 etl.log
 source_data
+.DS_Store
+tmp
