@@ -17,6 +17,7 @@ More explanations will be added here later on. In the mean time:
     
     bundle exec etl etl/process_all.ebf
 
+<<<<<<< HEAD
 # Tests
 
 There are a couple of specs to show how to test your dimension builders. Run with:
@@ -35,3 +36,9 @@ Pull-request are most-welcome! Get in touch before working on anything significa
 # License
 
 MIT
+=======
+# Contributors
+
+* Thibaut Barrère
+* Alisson Cavalcante Agiani
+>>>>>>> db673af9120ce9b79b6cb050c5e8b1c9c259e018
