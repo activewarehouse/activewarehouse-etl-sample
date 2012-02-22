@@ -1,1 +1,1 @@
-rvm --create use ruby-1.9.3@aw-etl-sample
+rvm --create use ruby-1.9.3-p125@aw-etl-sample
