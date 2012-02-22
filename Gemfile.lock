@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:activewarehouse/activewarehouse-etl.git
+  remote: https://github.com/activewarehouse/activewarehouse-etl.git
   revision: 524d3058afe6ea46fda3699f76e949fa5a3fd994
   specs:
     activewarehouse-etl (0.9.5.rc1)
