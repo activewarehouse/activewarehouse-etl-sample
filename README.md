@@ -2,10 +2,6 @@
 
 This is a sample of ETL built on a very small data set (the rails git commit log) for educational purposes.
 
-A work-in-progress of visualization can be seen online here:
-
-[http://activewarehouse-etl-sample.herokuapp.com/](http://activewarehouse-etl-sample.herokuapp.com)
-
 # How to run
 
 More explanations will be added here later on. In the mean time:

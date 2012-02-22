@@ -1,2 +1,0 @@
-jQuery ->
-  alert("Hello world")
