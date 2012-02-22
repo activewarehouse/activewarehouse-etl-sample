@@ -15,11 +15,13 @@ More explanations will be added here later on. In the mean time:
 * edit `config/database.yml` to reflect your mysql setup
 * then:
 
-    bundle install
-    mysql -u root -p -e "create database aw_etl_sample_etl_execution"
-    mysql -u root -p -e "create database aw_etl_sample_datawarehouse CHARACTER SET utf8 COLLATE utf8_general_ci"
+```
+bundle install
+mysql -u root -p -e "create database aw_etl_sample_etl_execution"
+mysql -u root -p -e "create database aw_etl_sample_datawarehouse CHARACTER SET utf8 COLLATE utf8_general_ci"
     
-    bundle exec etl etl/process_all.ebf
+bundle exec etl etl/process_all.ebf
+```
 
 ## Tests
 
