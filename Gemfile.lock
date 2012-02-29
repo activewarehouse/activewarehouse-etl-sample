@@ -1,6 +1,12 @@
 GIT
+  remote: git://github.com/activewarehouse/mysql2.git
+  revision: 67a5e63804648c4fb98a0046eb31c85509021fe6
+  specs:
+    mysql2 (0.3.11)
+
+GIT
   remote: https://github.com/activewarehouse/activewarehouse-etl.git
-  revision: 524d3058afe6ea46fda3699f76e949fa5a3fd994
+  revision: b36387a36b4f6e5751a3ea87b2438c12eb44d266
   specs:
     activewarehouse-etl (0.9.5.rc1)
       activerecord (>= 2.1.0)
@@ -11,7 +17,8 @@ GIT
 
 GIT
   remote: https://github.com/activewarehouse/adapter_extensions.git
-  revision: 9f497cc4f46570f1acd471ef318facae0fe0a6c1
+  revision: 2e4658a2ecc77eb7a91f9c81cf1c56a5bd854a9e
+  branch: rails-3
   specs:
     adapter_extensions (0.9.5)
       activerecord (>= 2.1.0)
@@ -39,7 +46,6 @@ GEM
     fastercsv (1.5.4)
     i18n (0.6.0)
     multi_json (1.1.0)
-    mysql2 (0.3.11)
     rake (0.9.2.2)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
@@ -58,5 +64,5 @@ DEPENDENCIES
   activewarehouse-etl!
   adapter_extensions!
   awesome_print
-  mysql2
+  mysql2!
   rspec

@@ -11,3 +11,4 @@ datawarehouse:
   <<: *common
   database: aw_etl_sample_datawarehouse
   encoding: utf8
+  local_infile: true
