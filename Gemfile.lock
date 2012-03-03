@@ -4,41 +4,30 @@ GIT
   specs:
     mysql2 (0.3.11)
 
-GIT
-  remote: https://github.com/activewarehouse/activewarehouse-etl.git
-  revision: b36387a36b4f6e5751a3ea87b2438c12eb44d266
-  specs:
-    activewarehouse-etl (0.9.5.rc1)
-      activerecord (>= 2.1.0)
-      activesupport (>= 2.1.0)
-      adapter_extensions (>= 0.9.5.rc1)
-      fastercsv (>= 1.2.0)
-      rake (>= 0.8.3)
-
-GIT
-  remote: https://github.com/activewarehouse/adapter_extensions.git
-  revision: 2e4658a2ecc77eb7a91f9c81cf1c56a5bd854a9e
-  branch: rails-3
-  specs:
-    adapter_extensions (0.9.5)
-      activerecord (>= 2.1.0)
-      activesupport (>= 2.1.0)
-      rake (>= 0.8.3)
-
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (3.2.1)
-      activesupport (= 3.2.1)
+    activemodel (3.2.2)
+      activesupport (= 3.2.2)
       builder (~> 3.0.0)
-    activerecord (3.2.1)
-      activemodel (= 3.2.1)
-      activesupport (= 3.2.1)
-      arel (~> 3.0.0)
+    activerecord (3.2.2)
+      activemodel (= 3.2.2)
+      activesupport (= 3.2.2)
+      arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activesupport (3.2.1)
+    activesupport (3.2.2)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    activewarehouse-etl (1.0.0.rc1)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      adapter_extensions (>= 0.9.5.rc1)
+      fastercsv (>= 1.2.0)
+      rake (>= 0.8.3)
+    adapter_extensions (1.0.0.rc1)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      rake (>= 0.8.3)
     arel (3.0.2)
     awesome_print (1.0.2)
     builder (3.0.0)
@@ -61,8 +50,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activewarehouse-etl!
-  adapter_extensions!
+  activewarehouse-etl (= 1.0.0.rc1)
+  adapter_extensions (= 1.0.0.rc1)
   awesome_print
   mysql2!
   rspec
