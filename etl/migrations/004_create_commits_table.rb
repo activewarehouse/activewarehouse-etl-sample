@@ -2,7 +2,7 @@ class CreateCommitsTable < ActiveRecord::Migration
 
   def self.up
     create_table :commits do |t|
-      t.string :hash
+      t.string :sha1
 
       t.integer :files_changed
       t.integer :insertions
@@ -13,7 +13,7 @@ class CreateCommitsTable < ActiveRecord::Migration
       t.integer :user_id
     end
     
-    add_index :commits, :hash, :unique
+    add_index :commits, :sha1, :unique
   end
   
   def self.down

@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/common')
 
 table = Commit.table_name
 source_fields = [:commit_hash, :author_name, :author_date, :files_changed, :insertions, :deletions]
-target_fields = [:hash, :user_id, :date_id, :time_id, :files_changed, :insertions, :deletions]
+target_fields = [:sha1, :user_id, :date_id, :time_id, :files_changed, :insertions, :deletions]
 
 source :git_commits,
   :file => File.expand_path(File.join(DATA_FOLDER, 'git-commits.csv')),
@@ -11,10 +11,10 @@ source :git_commits,
 # Ensure the fields we rely on are here on each row
 after_read :ensure_fields_presence, { :fields => source_fields }
 
-rename :commit_hash, :hash
+rename :commit_hash, :sha1
 
 # in RAM unicity check - duplicate rows will be removed from the pipeline
-after_read :check_unique, :keys => [:hash]
+after_read :check_unique, :keys => [:sha1]
 
 # rename is an after_read with some sugar
 rename :author_name, :user_id
@@ -47,7 +47,7 @@ transform :time_id, :foreign_key_lookup,
 bulk_load_file = File.expand_path(File.join(DATA_FOLDER, 'new_git_commits.txt'))
 
 # remove rows that are already in the destination database
-before_write :check_exist, :target => :datawarehouse, :table => table, :columns => [:hash]
+before_write :check_exist, :target => :datawarehouse, :table => table, :columns => [:sha1]
 
 # write only the new records to a raw file prior to bulk loading
 destination :out, { :file => bulk_load_file }, { :order => target_fields }
@@ -60,7 +60,7 @@ post_process :bulk_import, {
 }
 
 after_post_process_screen(:fatal) {
-  commit = Commit.where(:hash => '7e56bf724479ce92eff2f806573f382957f3a2b4').first
+  commit = Commit.where(:sha1 => '7e56bf724479ce92eff2f806573f382957f3a2b4').first
   assert_not_nil commit, "missing expected commit 7e56bf72"
   assert_equal "Xavier Noria", commit.user.name
   
