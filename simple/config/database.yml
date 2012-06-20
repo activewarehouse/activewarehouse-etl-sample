@@ -1,0 +1,14 @@
+common: &common
+  adapter: mysql2
+  username: root
+  host: localhost
+
+etl_execution:
+  <<: *common
+  database: aw_etl_simple_etl_execution
+
+datawarehouse:
+  <<: *common
+  database: aw_etl_simple_datawarehouse
+  encoding: utf8
+  local_infile: true

@@ -1,0 +1,2 @@
+run 'prepare_db.ctl'
+run 'upsert_customers.ctl'
