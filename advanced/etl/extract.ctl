@@ -41,8 +41,14 @@ pre_process do
           buffer << 0 << 0 << 0 unless buffer.size == csv_fields.size || buffer.empty?
           output << buffer unless buffer.empty?
           buffer = line.strip.split(col_sep)
-        when /(\d+) files changed, (\d+) insertions\(\+\), (\d+) deletions\(\-\)/;
+        when /(\d+) files? changed, (\d+) insertions?\(\+\), (\d+) deletions?\(\-\)/;
           buffer << $1 << $2 << $3
+        when /(\d+) files? changed, (\d+) insertions?\(\+\)/;
+          buffer << $1 << $2 << '0'
+        when /(\d+) files? changed, (\d+) deletions?\(\-\)/;
+          buffer << $1 << '0' << $2
+        when /(\d+) files? changed/;
+          buffer << $1 << '0' << '0'
         when "\n";
         else raise "Failed to parse line #{line.inspect}"
       end
