@@ -23,18 +23,18 @@ pre_process do
   }.to_a
 
   col_sep = "\t"
-  
+
   git_fields = commit_fields.map(&:first).map { |e| "%#{e}" }
   git_fields = git_fields.join(to_git_char(col_sep))
   csv_fields = commit_fields.map(&:last) + [:files_changed, :insertions, :deletions]
 
   CSV.open(git_commits_file, 'w') do |output|
     output << csv_fields
-    
+
     cmd = "cd #{GIT_RAILS_REPO} && git log --shortstat --reverse --pretty=format:\"#{git_fields}\""
-   
+
     buffer = []
-    
+
     IO.popen(cmd).each_line do |line|
       case line
         when /^[0-9a-f]{40}/;
@@ -51,13 +51,13 @@ pre_process do
     buffer << 0 << 0 << 0 unless buffer.size == csv_fields.size || buffer.empty?
     output << buffer unless buffer.empty?
   end
-  
+
 end
 
 screen(:fatal) do
   assert_equal %w(commit_hash author_name author_email author_date files_changed insertions deletions),
     CSV.parse_line(IO.popen("head -1 #{git_commits_file}").read)
-  
+
   assert_equal [
     "20d7d2415f99620590aec07cedcaace34cced1c6",
     "Xavier Noria",
@@ -67,7 +67,7 @@ screen(:fatal) do
     "3",
     "3"
   ], CSV.parse_line(IO.popen("grep 20d7d2415f99620590aec07cedcaace34cced1c6 #{git_commits_file}").read)
-  
+
   # when no stat is provided, 0/0/0 should still be stored
   row_with_no_file_changes = CSV.parse_line(IO.popen("grep b3f45195aa8a35277c3f998917312797936a1f4e #{git_commits_file}").read)
 
