@@ -5,7 +5,7 @@ GIT
     mysql2 (0.3.11)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     activemodel (3.2.6)
       activesupport (= 3.2.6)
