@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 # use our own fork for bulk load support until issue fixed:
 # https://github.com/brianmario/mysql2/pull/242
